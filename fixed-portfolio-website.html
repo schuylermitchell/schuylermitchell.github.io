@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Schuyler Mitchell</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: #f5f6fb;
+            font-family: 'Times New Roman', serif;
+            margin: 0;
+            padding: 40px 20px;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='24' viewBox='0 0 16 24'%3E%3Cpath d='M3,3 L13,13 L8,13 L11,22 L9,23 L6,13 L3,16 Z' fill='%23002ef9'/%3E%3C/svg%3E"), auto;
+        }
+
+        .container {
+            width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .title-link {
+            text-decoration: none;
+        }
+
+        h1 {
+            color: #002ef9;
+            font-weight: 150;
+            font-size: 100px;
+            text-align: center;
+            margin: 0;
+            padding: 20px 0;
+        }
+
+        .name-part {
+            display: inline-block;
+            position: relative;
+        }
+
+        .name-part .pronunciation {
+            display: none;
+            color: #06c3d4;
+            font-style: italic;
+        }
+
+        .name-part:hover .original {
+            display: none;
+        }
+
+        .name-part:hover .pronunciation {
+            display: inline;
+        }
+
+        .slug {
+            text-align: center;
+            color: #06c3d4;
+            font-size: 24px;
+            margin: 0 0 60px 0;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 800px;
+            margin: 0 auto;
+            gap: 40px;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-right: 20px;
+        }
+
+        .image-box {
+            aspect-ratio: 3/4;
+            width: 70%;
+            overflow: hidden;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding-right: 20px;
+            position: relative;
+        }
+
+        .links {
+            text-align: left;
+            font-size: 32px;
+            color: #002ef9;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            align-self: flex-start;
+        }
+
+        .followme-link {
+            text-decoration: none;
+            display: block;
+            margin: 20px 0;
+            color: #06c3d4;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .followme-link:hover {
+            color: #002ef9;
+        }
+
+        .links:hover {
+            color: #06c3d4;
+        }
+
+        .section-title {
+            font-size: 32px;
+            color: #002ef9;
+            text-align: left;
+            margin-bottom: 25px;
+            align-self: flex-start;
+        }
+
+        .content-section {
+            display: none;
+            max-height: 400px;
+            overflow-y: auto;
+            width: 100%;
+            text-align: left;
+            scrollbar-width: thin;
+            scrollbar-color: #002ef9 #f5f6fb;
+            padding-right: 15px;
+        }
+
+        .content-section::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .content-section::-webkit-scrollbar-track {
+            background: #f5f6fb;
+            margin-right: 5px;
+        }
+
+        .content-section::-webkit-scrollbar-thumb {
+            background-color: #002ef9;
+            border-radius: 0;
+        }
+
+        .about-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #06c3d4;
+            text-align: justify;
+        }
+
+        .about-text em {
+            font-style: italic;
+        }
+
+        .writing-container .category, 
+        .research-container .category {
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .category-title {
+            font-size: 24px;
+            color: #06c3d4;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .article-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .article-link-container {
+            flex: 1;
+            padding-right: 15px;
+        }
+
+        .article-link {
+            display: inline-block;
+            color: #002ef9;
+            text-decoration: none;
+            font-size: 16px;
+            line-height: 1.4;
+            transition: color 0.3s ease;
+        }
+
+        .article-link:hover {
+            color: #06c3d4;
+        }
+
+        .publication {
+            font-style: italic;
+            color: #06c3d4;
+            font-size: 14px;
+            text-align: right;
+            width: 100px;
+            flex-shrink: 0;
+            line-height: 1.4;
+        }
+
+        .year {
+            color: #06c3d4;
+            font-size: 14px;
+        }
+
+        .bylines-section {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .byline-link {
+            display: block;
+            color: #06c3d4;
+            font-size: 16px;
+            margin: 10px 0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .byline-link:hover {
+            color: #002ef9;
+        }
+
+        .byline-link em {
+            font-style: italic;
+        }
+
+        .interviews-container {
+            text-align: left;
+        }
+
+        .interview-link {
+            display: block;
+            margin: 20px 0;
+            color: #06c3d4;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .interview-link:hover {
+            color: #002ef9;
+        }
+
+        .go-back {
+            display: block;
+            margin-top: 30px;
+            text-align: left;
+            font-size: 16px;
+            color: #002ef9;
+            cursor: pointer;
+            text-decoration: none;
+            font-style: italic;
+        }
+
+        .email-container {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .email-text {
+            font-size: 30px;
+            color: #002ef9;
+            font-style: italic;
+        }
+
+        .email-address {
+            transition: color 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .email-address:hover {
+            color: #06c3d4;
+        }
+
+        .note {
+            font-size: 14px;
+            color: #06c3d4;
+            margin-top: 5px;
+            margin-left: 20px;
+            font-style: italic;
+        }
+
+        @media (max-width: 1040px) {
+            .container {
+                width: 100%;
+            }
+
+            .content-wrapper {
+                width: 100%;
+                grid-template-columns: 1fr;
+                justify-items: center;
+                gap: 20px;
+            }
+
+            .image-container {
+                justify-content: center;
+                padding-right: 0;
+            }
+
+            .links-container {
+                padding-right: 0;
+                align-items: center;
+            }
+
+            .links, .section-title {
+                text-align: center;
+                align-self: center;
+            }
+
+            .image-box {
+                width: 60%;
+            }
+
+            .content-section {
+                padding: 0 20px;
+                max-height: 500px;
+            }
+
+            .category-title {
+                text-align: center;
+            }
+
+            .article-container {
+                flex-direction: column;
+            }
+
+            .publication {
+                width: 100%;
+                text-align: left;
+                margin-top: 5px;
+                margin-left: 10px;
+            }
+
+            .go-back {
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 60px;
+            }
+
+            .slug {
+                font-size: 20px;
+            }
+
+            .links, .email-text {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="title-link">
+            <h1><span class="name-part"><span class="original">Schuyler</span><span class="pronunciation">[Sky-ler]</span></span> Mitchell</h1>
+        </a>
+        <p class="slug">is a journalist covering politics and power. She lives in Brooklyn.</p>
+        
+        <div class="content-wrapper">
+            <div class="image-container">
+                <div class="image-box">
+                    <img src="selfie.jpg" alt="Schuyler Mitchell">
+                </div>
+            </div>
+            
+            <div class="links-container">
+                <p class="links" id="about-link">about</p>
+                <p class="links" id="writing-link">writing</p>
+                <p class="links" id="research-link">research</p>
+                <p class="links" id="interviews-link">interviews</p>
+                <p class="links" id="followme-link">follow me</p>
+                
+                <div class="content-section" id="about-section">
+                    <div class="section-title">about</div>
+                    <div class="about-text">
+                        I'm currently a political columnist at <em>Truthout</em>. Before that, I was an associate editor and reporter at <em>The Intercept</em>. I've assisted with freelance fact-checking and investigative research for various publications, including <em>Business Insider</em>, <em>New York</em>, and <em>The Drift</em>.<br><br>
+                        My reporting has been cited extensively by news outlets (like <em>ProPublica</em>), academic journals (such as the <em>The Cambridge Journal of Law, Politics, and Art</em>), and prominent nonprofit orgs (including the Natural Resources Defense Council and Beyond Plastics).<br><br>
+                        After graduating from Pomona College in 2020, I got my start in journalism as an intern at Los Angeles Magazine, which I juggled while completing DoorDash deliveries and SEO content writing gigs. I was born in Texas and raised in North Carolina.
+                    </div>
+                    <a href="index.html" class="go-back">go back</a>
+                </div>
+                
+                <div class="content-section writing-container" id="writing-section">
+                    <div class="section-title">writing</div>
+                    
+                    <div class="category">
+                        <div class="category-title">environment</div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://theintercept.com/2023/09/28/braven-plastic-recycling-toxic-waste/" class="article-link" target="_blank">Garbage In, Toxics Out: They Promised "Advanced Recycling" for Plastics and Delivered Toxic Waste</a>
+                            </div>
+                            <div class="publication">the intercept</div>
+                        </div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://truthout.org/articles/as-north-carolina-flooded-my-home-state-turned-from-climate-haven-to-calamity/" class="article-link" target="_blank">As North Carolina Flooded, My Home State Turned From Climate Haven to Calamity</a>
+                            </div>
+                            <div class="publication">truthout</div>
+                        </div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://theintercept.com/2023/02/18/east-palestine-plastic-industry-lobbying/" class="article-link" target="_blank">The Myth of Safe Plastics Persists, Despite Risk of Disasters Like East Palestine</a>
+                            </div>
+                            <div class="publication">the intercept</div>
+                        </div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://jacobin.com/2024/09/democrats-fracking-pennsylvania-2024-election" class="article-link" target="_blank">Democrats Don't Need to Back Fracking to Win Pennsylvania</a>
+                            </div>
+                            <div class="publication">jacobin</div>
+                        </div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://truthout.org/articles/trump-reelection-looms-over-cop29-as-climate-conference-continues-to-disappoint/" class="article-link" target="_blank">Trump Reelection Looms Over COP29 as Climate Conference Continues to Disappoint</a>
+                            </div>
+                            <div class="publication">truthout</div>
+                        </div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://theintercept.com/2023/10/31/plastics-pollution-advanced-recycling/" class="article-link" target="_blank">Unproven "Advanced Recycling" Facilities Have Received Millions in Public Subsidies</a>
+                            </div>
+                            <div class="publication">the intercept</div>
+                        </div>
+                    </div>
+                    
+                    <div class="category">
+                        <div class="category-title">prisons, protests, policing</div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://theintercept.com/2024/10/04/hurricane-helene-north-carolina-mountain-view-prison/" class="article-link" target="_blank">Hurricane-Struck North Carolina Prisoners Were Locked in Cells With Their Own Feces for Nearly a Week</a>
+                            </div>
+                            <div class="publication">the intercept</div>
+                        </div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://theintercept.com/2025/01/08/la-police-budget-palisades-fires/" class="article-link" target="_blank">LA Budgeted Money For Cop Jobs While Cutting Fire Department Positions. Now the City Is Burning.</a>
+                            </div>
+                            <div class="publication">the intercept</div>
+                        </div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://truthout.org/articles/in-2024-platform-democrats-lurch-right-on-policing-and-immigration/" class="article-link" target="_blank">In 2024 Platform, Democrats Lurch Right on Policing and Immigration</a>
+                            </div>
+                            <div class="publication">truthout</div>
+                        </div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://truthout.org/articles/north-carolina-gop-is-trying-to-corner-prosecutors-into-charging-protesters/" class="article-link" target="_blank">North Carolina GOP Is Trying to Corner Prosecutors Into Charging Protesters</a>
+                            </div>
+                            <div class="publication">truthout</div>
+                        </div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://theintercept.com/2023/11/16/israel-palestine-gaza-student-protests/" class="article-link" target="_blank">Inside the Nationwide Campaign to Intimidate Students Protesting for Gaza</a>
+                            </div>
+                            <div class="publication">the intercept</div>
+                        </div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://theintercept.com/2022/10/03/cubic-military-public-transit-mta-omny/" class="article-link" target="_blank">Meet the Military Contractor Running Fare Collection in New York Subways — and Around the World</a>
+                            </div>
+                            <div class="publication">the intercept</div>
+                        </div>
+                    </div>
+                    
+                    <div class="category">
+                        <div class="category-title">labor</div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://truthout.org/articles/hit-hard-by-hurricane-helene-georgias-migrant-farmworkers-struggle-to-get-aid/" class="article-link" target="_blank">Hit Hard by Hurricane Helene, Georgia's Immigrant Farmworkers Struggle to Get Aid</a>
+                            </div>
+                            <div class="publication">truthout</div>
+                        </div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://truthout.org/articles/after-86-years-disabled-workers-could-finally-receive-minimum-wage-protections/" class="article-link" target="_blank">After 86 Years, Disabled Workers Could Finally Receive Minimum Wage Protections</a>
+                            </div>
+                            <div class="publication">truthout</div>
+                        </div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://truthout.org/articles/amazon-union-effort-in-north-carolina-is-latest-attempt-to-organize-the-south/" class="article-link" target="_blank">Amazon Union Effort in North Carolina Is Latest Attempt to Organize the South</a>
+                            </div>
+                            <div class="publication">truthout</div>
+                        </div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://labornotes.org/2024/02/fords-battery-flagship-socked-mold-sickness-workers-say" class="article-link" target="_blank">Ford's Battery Flagship Socked by Mold Sickness, Workers Say</a>
+                            </div>
+                            <div class="publication">labor notes</div>
+                        </div>
+                    </div>
+                    
+                    <div class="category">
+                        <div class="category-title">health</div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://truthout.org/articles/we-are-about-to-learn-what-a-post-truth-approach-to-public-health-feels-like/" class="article-link" target="_blank">We Are About to Learn What a Post-Truth Approach to Public Health Feels Like</a>
+                            </div>
+                            <div class="publication">truthout</div>
+                        </div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://truthout.org/articles/universal-health-care-was-big-on-the-2020-democratic-platform-where-is-it-now/" class="article-link" target="_blank">Universal Health Care Was Big on the 2020 Democratic Platform. Where Is It Now?</a>
+                            </div>
+                            <div class="publication">truthout</div>
+                        </div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://theintercept.com/2022/05/17/abortion-trans-health-care-pro-natalism-authoritarianism/" class="article-link" target="_blank">The Right's Creeping Pro-Natalist Rhetoric on Abortion and Trans Health Care</a>
+                            </div>
+                            <div class="publication">the intercept</div>
+                        </div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://theintercept.com/2022/08/08/ambulance-ems-subscription-bills/" class="article-link" target="_blank">Ticket to Ride: Ambulance Rides Still Aren't Protected From Surprise Billing — and Subscriptions Do Little to Help</a>
+                            </div>
+                            <div class="publication">the intercept</div>
+                        </div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://lamag.com/featured/covid-east-la-doctors-hospital" class="article-link" target="_blank">COVID Conditions Have Improved, but Staffers at This East L.A. Hospital Aren't Letting Down Their Guard</a>
+                            </div>
+                            <div class="publication">los angeles magazine</div>
+                        </div>
+                    </div>
+                    
+                    <div class="category">
+                        <div class="category-title">culture</div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://thebaffler.com/latest/pinkwashing-the-timeline-mitchell" class="article-link" target="_blank">Pinkwashing the Timeline</a>
+                            </div>
+                            <div class="publication">the baffler</div>
+                        </div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://dirt.fyi/article/2024/05/froyomonium" class="article-link" target="_blank">Froyomonium</a>
+                            </div>
+                            <div class="publication">dirt</div>
+                        </div>
+                        
+                        <div class="article-container">
+                            <div class="article-link-container">
+                                <a href="https://lamag.com/featured/lesbian-bars-los-angeles" class="article-link" target="_blank">How Did L.A. Become a City Without Lesbian Bars?</a>
+                            </div>
+                            <div class="publication">los angeles magazine</div>
+                        </div>
+                    </div>
+                    
+                    <div class="bylines-section">
+                        <a href="https://theintercept.com/staff/schuylermitchell/" class="byline-link" target="_blank">Find all of my <em>Intercept</em> bylines here.</a>
+                        <a href="https://truthout.org/authors/schuyler-mitchell/" class="byline-link" target="_blank">Find all of my <em>Truthout</em> bylines here.</a>
+                    </div>
+                    
+                    <a href="index.html" class="go-back">go back</a>
+                </div>
+                
+                <div class="content-section research-container" id="research-section">
+                    <div class="section-title">research</div>
+                    
+                    <div class="article-container">
+                        <div class="article-link-container">
+                            <a href="https://www.businessinsider.com/eighth-amendment-prohibit-protect-prisoners-cruel-and-unusual-punishment-gutted-2024-12" class="article-link" target="_blank">The Gutting of the Eighth Amendment</a>
+                        </div>
+                        <div class="publication">business insider</div>
+                    </div>
+                    
+                    <div class="article-container">
+                        <div class="article-link-container">
+                            <a href="https://www.businessinsider.com/immigration-customs-enforcement-ice-agents-deadly-force-shootings-2024-8" class="article-link" target="_blank">Armed and Untouchable</a>
+                        </div>
+                        <div class="publication">business insider</div>
+                    </div>
+                    
+                    <div class="article-container">
+                        <div class="article-link-container">
+                            <a href="https://theintercept.com/2023/12/17/kelly-siegler-prosecutor-jeffrey-prible/" class="article-link" target="_blank">The Prosecutor and the Snitch Ring</a>
+                        </div>
+                        <div class="publication">the intercept</div>
+                    </div>
+                    
+                    <div class="article-container">
+                        <div class="article-link-container">
+                            <a href="https://theintercept.com/2022/06/23/honduras-berta-caceres-murder-money-trail/" class="article-link" target="_blank">The Cash Before the Killing</a>
+                        </div>
+                        <div class="publication">the intercept</div>
+                    </div>
+                    
+                    <a href="index.html" class="go-back">go back</a>
+                </div>
+                
+                <div class="content-section interviews-container" id="interviews-section">
+                    <div class="section-title">interviews</div>
+                    <a href="https://www.youtube.com/watch?v=rao2V3dI1E8" class="interview-link" target="_blank">The Majority Report</a>
+                    <a href="https://www.youtube.com/watch?v=UQJ9sv0S5vs" class="interview-link" target="_blank">Rattling the Bars</a>
+                    <a href="https://podcasts.apple.com/us/podcast/toxic-deregulation-with-schuyler-mitchell/id1631858075?i=1000601481718" class="interview-link" target="_blank">WBAI-FM Green Street News</a>
+                    <a href="http://nicholasinstitute.duke.edu/events/trash-talk-plastic-waste-environmental-justice" class="interview-link" target="_blank">Duke University Environmental Law Society</a>
+
+                    <a href="index.html" class="go-back">go back</a>
+                </div>
+
+                <div class="content-section" id="followme-section">
+                    <div class="section-title">follow me</div>
+                    <a href="https://x.com/schuy_ler" class="followme-link" target="_blank">X/Twitter</a>
+                    <a href="https://www.instagram.com/schuyler.mitchell/" class="followme-link" target="_blank">Instagram</a>
+                    <a href="https://www.linkedin.com/in/schuyler-a-mitchell/" class="followme-link" target="_blank">LinkedIn</a>
+                    <a href="index.html" class="go-back">go back</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="email-container">
+            <span class="email-text">tips? <a href="mailto:schuylermitchell@proton.me" class="email-address">schuylermitchell [at] proton [dot] me</a></span>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('about-link').addEventListener('click', function() {
+            hideAllSections();
+            document.getElementById('about-section').style.display = 'block';
+        });
+        
+        document.getElementById('writing-link').addEventListener('click', function() {
+            hideAllSections();
+            document.getElementById('writing-section').style.display = 'block';
+        });
+        
+        document.getElementById('research-link').addEventListener('click', function() {
+            hideAllSections();
+            document.getElementById('research-section').style.display = 'block';
+        });
+        
+        document.getElementById('interviews-link').addEventListener('click', function() {
+            hideAllSections();
+            document.getElementById('interviews-section').style.display = 'block';
+        });
+        
+        document.getElementById('followme-link').addEventListener('click', function() {
+            hideAllSections();
+            document.getElementById('followme-section').style.display = 'block';
+        });
+        
+        function hideAllSections() {
+            // Hide all links
+            const links = document.querySelectorAll('.links');
+            links.forEach(link => {
+                link.style.display = 'none';
+            });
+            
+            // Hide all content sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>
