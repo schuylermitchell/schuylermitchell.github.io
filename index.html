@@ -6,278 +6,205 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        :root {
+            --blue: #002ef9;
+            --cyan: #06c3d4;
+            --paper: #f5f6fb;
+        }
+
         body {
-            background-color: #f5f6fb;
+            background-color: var(--paper);
             font-family: 'Times New Roman', serif;
             margin: 0;
-            padding: 40px 20px;
+            padding: 40px 20px 0;
             cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='24' viewBox='0 0 16 24'%3E%3Cpath d='M3,3 L13,13 L8,13 L11,22 L9,23 L6,13 L3,16 Z' fill='%23002ef9'/%3E%3C/svg%3E"), auto;
         }
 
-     
         .container {
-            width: 1000px;
+            width: 100%;
+            max-width: 860px;
             margin: 0 auto;
-            position: relative;
         }
 
-        .title-link {
-            text-decoration: none;
-        }
+        /* ---------- masthead ---------- */
+
+        .title-link { text-decoration: none; }
 
         h1 {
-            color: #002ef9;
+            color: var(--blue);
             font-weight: 150;
             font-size: 100px;
             text-align: center;
             margin: 0;
-            padding: 20px 0;
+            padding: 20px 0 10px;
+            line-height: 1;
         }
 
-        .name-part {
-            display: inline-block;
-            position: relative;
-        }
-
-        .name-part .pronunciation {
-            display: none;
-            color: #06c3d4;
-            font-style: italic;
-        }
-
-        .name-part:hover .original {
-            display: none;
-        }
-
-        .name-part:hover .pronunciation {
-            display: inline;
-        }
+        .name-part { display: inline-block; position: relative; }
+        .name-part .pronunciation { display: none; color: var(--cyan); font-style: italic; }
+        .name-part:hover .original { display: none; }
+        .name-part:hover .pronunciation { display: inline; }
 
         .slug {
             text-align: center;
-            color: #06c3d4;
+            color: var(--cyan);
             font-size: 24px;
-            margin: 0 0 60px 0;
+            margin: 0 0 30px 0;
         }
 
-        .content-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            width: 800px;
-            margin: 0 auto;
-            gap: 40px;
-        }
-
-        .image-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding-right: 20px;
-        }
-
-        .image-box {
+        .portrait {
+            width: 170px;
             aspect-ratio: 3/4;
-            width: 70%;
+            margin: 0 auto 30px;
             overflow: hidden;
         }
 
-        .image-box img {
+        .portrait img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .links-container {
+        /* ---------- nav ---------- */
+
+        nav {
             display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
-            padding-right: 20px;
-            position: relative;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px 28px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--blue);
+            margin-bottom: 45px;
         }
 
-        .links {
-            text-align: left;
-            font-size: 32px;
-            color: #002ef9;
-            margin: 15px 0;
-            cursor: pointer;
-            transition: color 0.3s ease;
-            align-self: flex-start;
-        }
-
-        .followme-link {
-            text-decoration: none;
-            display: block;
-            margin: 20px 0;
-            color: #06c3d4;
-            font-size: 18px;
+        .nav-item {
+            font-size: 28px;
+            color: var(--blue);
+            background: none;
+            border: none;
+            padding: 0;
+            font-family: inherit;
+            cursor: inherit;
             transition: color 0.3s ease;
         }
 
-        .followme-link:hover {
-            color: #002ef9;
-        }
+        .nav-item:hover { color: var(--cyan); }
+        .nav-item[aria-current="true"] { color: var(--cyan); font-style: italic; }
+        .nav-item:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
 
-        .links:hover {
-            color: #06c3d4;
-        }
+        /* ---------- sections ---------- */
 
-        .section-title {
-            font-size: 32px;
-            color: #002ef9;
-            text-align: left;
-            margin-bottom: 25px;
-            align-self: flex-start;
-        }
-
-        .content-section {
-            display: none;
-            max-height: 400px;
-            overflow-y: auto;
-            width: 100%;
-            text-align: left;
-            scrollbar-width: thin;
-            scrollbar-color: #002ef9 #f5f6fb;
-            padding-right: 15px;
-        }
-
-        .content-section::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .content-section::-webkit-scrollbar-track {
-            background: #f5f6fb;
-            margin-right: 5px;
-        }
-
-        .content-section::-webkit-scrollbar-thumb {
-            background-color: #002ef9;
-            border-radius: 0;
-        }
+        .content-section { display: none; }
+        .content-section.is-open { display: block; }
 
         .about-text {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #06c3d4;
-            text-align: justify;
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--cyan);
+            max-width: 62ch;
+            margin: 0 auto;
         }
 
-        .about-text em {
-            font-style: italic;
+        .about-text em { font-style: italic; }
+
+        /* ---------- writing index ---------- */
+
+        .index-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 55px;
+            align-items: start;
         }
 
-        .writing-container .category, 
-        .research-container .category {
-            margin: 25px 0;
-            text-align: left;
+        .category {
+            margin: 0 0 38px 0;
         }
+
+        .category:last-child { margin-bottom: 0; }
 
         .category-title {
-            font-size: 24px;
-            color: #06c3d4;
-            margin-bottom: 20px;
-            text-align: left;
+            font-size: 22px;
+            color: var(--cyan);
+            margin: 0 0 16px 0;
         }
 
-        .article-container {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .article-link-container {
-            flex: 1;
-            padding-right: 15px;
-        }
+        .entry { margin-bottom: 16px; }
 
         .article-link {
-            display: inline-block;
-            color: #002ef9;
+            display: block;
+            color: var(--blue);
             text-decoration: none;
             font-size: 16px;
-            line-height: 1.4;
+            line-height: 1.35;
             transition: color 0.3s ease;
         }
 
-        .article-link:hover {
-            color: #06c3d4;
-        }
+        .article-link:hover { color: var(--cyan); }
 
         .publication {
+            display: block;
             font-style: italic;
-            color: #06c3d4;
-            font-size: 14px;
-            text-align: right;
-            width: 100px;
-            flex-shrink: 0;
-            line-height: 1.4;
-        }
-
-        .year {
-            color: #06c3d4;
-            font-size: 14px;
+            color: var(--cyan);
+            font-size: 13.5px;
+            margin-top: 2px;
         }
 
         .bylines-section {
-            margin-top: 30px;
-            margin-bottom: 30px;
+            margin-top: 10px;
+            padding-top: 22px;
+            border-top: 1px solid var(--cyan);
         }
 
         .byline-link {
             display: block;
-            color: #06c3d4;
+            color: var(--cyan);
             font-size: 16px;
-            margin: 10px 0;
+            margin: 9px 0;
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
-        .byline-link:hover {
-            color: #002ef9;
-        }
+        .byline-link:hover { color: var(--blue); }
+        .byline-link em { font-style: italic; }
 
-        .byline-link em {
-            font-style: italic;
-        }
+        /* ---------- research + interviews ---------- */
 
-        .interviews-container {
-            text-align: left;
-        }
+        .research-container .entry { margin-bottom: 20px; }
 
         .interview-link {
             display: block;
-            margin: 20px 0;
-            color: #06c3d4;
+            margin: 16px 0;
+            color: var(--cyan);
             text-decoration: none;
             font-size: 18px;
             transition: color 0.3s ease;
         }
 
-        .interview-link:hover {
-            color: #002ef9;
-        }
+        .interview-link:hover { color: var(--blue); }
 
-        .go-back {
-            display: block;
-            margin-top: 30px;
-            text-align: left;
-            font-size: 16px;
-            color: #002ef9;
-            cursor: pointer;
+        .followme-link {
             text-decoration: none;
-            font-style: italic;
+            display: block;
+            margin: 16px 0;
+            color: var(--cyan);
+            font-size: 18px;
+            transition: color 0.3s ease;
         }
 
-        .email-container {
+        .followme-link:hover { color: var(--blue); }
+
+        /* ---------- tipline ---------- */
+
+        footer {
             text-align: center;
-            margin-top: 60px;
+            margin-top: 70px;
+            padding: 30px 0 60px;
+            border-top: 1px solid var(--blue);
         }
 
         .email-text {
-            font-size: 30px;
-            color: #002ef9;
+            font-size: 28px;
+            color: var(--blue);
             font-style: italic;
         }
 
@@ -287,576 +214,328 @@
             color: inherit;
         }
 
-        .email-address:hover {
-            color: #06c3d4;
+        .email-address:hover { color: var(--cyan); }
+
+        /* ---------- responsive ---------- */
+
+        @media (max-width: 760px) {
+            h1 { font-size: 52px; }
+            .slug { font-size: 18px; }
+            .nav-item { font-size: 22px; }
+            nav { gap: 4px 18px; }
+            .index-columns { grid-template-columns: 1fr; }
+            .email-text { font-size: 22px; }
+            .portrait { width: 130px; }
         }
 
-        .note {
-            font-size: 14px;
-            color: #06c3d4;
-            margin-top: 5px;
-            margin-left: 20px;
-            font-style: italic;
-        }
-
-        @media (max-width: 1040px) {
-            .container {
-                width: 100%;
-            }
-
-            .content-wrapper {
-                width: 100%;
-                grid-template-columns: 1fr;
-                justify-items: center;
-                gap: 20px;
-            }
-
-            .image-container {
-                justify-content: center;
-                padding-right: 0;
-            }
-
-            .links-container {
-                padding-right: 0;
-                align-items: center;
-            }
-
-            .links, .section-title {
-                text-align: center;
-                align-self: center;
-            }
-
-            .image-box {
-                width: 60%;
-            }
-
-            .content-section {
-                padding: 0 20px;
-                max-height: 500px;
-            }
-
-            .category-title {
-                text-align: center;
-            }
-
-            .article-container {
-                flex-direction: column;
-            }
-
-            .publication {
-                width: 100%;
-                text-align: left;
-                margin-top: 5px;
-                margin-left: 10px;
-            }
-
-            .go-back {
-                text-align: center;
-            }
-
-            h1 {
-                font-size: 60px;
-            }
-
-            .slug {
-                font-size: 20px;
-            }
-
-            .links, .email-text {
-                font-size: 26px;
-            }
+        @media (prefers-reduced-motion: reduce) {
+            * { transition: none !important; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="index.html" class="title-link">
-            <h1><span class="name-part"><span class="original">Schuyler</span><span class="pronunciation">[Sky-ler]</span></span> Mitchell</h1>
-        </a>
-        <p class="slug">is a journalist covering politics and power. She lives in Brooklyn.</p>
-        
-        <div class="content-wrapper">
-            <div class="image-container">
-                <div class="image-box">
-                    <img src="selfie.jpg" alt="Schuyler Mitchell">
+
+        <header>
+            <a href="#" class="title-link" onclick="show('about'); return false;">
+                <h1><span class="name-part"><span class="original">Schuyler</span><span class="pronunciation">[Sky-ler]</span></span> Mitchell</h1>
+            </a>
+            <p class="slug">is a journalist covering politics and power. She lives in Brooklyn.</p>
+
+            <div class="portrait">
+                <img src="selfie.jpg" alt="Schuyler Mitchell">
+            </div>
+        </header>
+
+        <nav>
+            <button class="nav-item" data-target="about">about</button>
+            <button class="nav-item" data-target="writing">writing</button>
+            <button class="nav-item" data-target="research">research</button>
+            <button class="nav-item" data-target="interviews">interviews</button>
+            <button class="nav-item" data-target="followme">follow me</button>
+        </nav>
+
+        <!-- ABOUT -->
+        <section class="content-section" id="about">
+            <div class="about-text">
+                I'm currently an assistant editor at <em>Mother Jones</em>, writing about surveillance, civil liberties, and dissent. Before that, I was a columnist at <em>Truthout</em> and an associate editor at <em>The Intercept</em>. I've contributed research to investigative features at <em>Business Insider</em> and <em>New York</em> magazine; projects I've worked on have won George Polk, Livingston, and Silver Gavel Awards.<br><br>
+                After graduating from Pomona College in 2020, I got my start in journalism as an intern at <em>Los Angeles Magazine</em>, which I juggled while completing DoorDash deliveries and SEO content writing gigs. I was born in Texas and raised in North Carolina.
+            </div>
+        </section>
+
+        <!-- WRITING -->
+        <section class="content-section" id="writing">
+            <div class="index-columns">
+
+              <!-- ============ LEFT COLUMN ============ -->
+              <div class="col">
+
+                <div class="category">
+                    <h2 class="category-title">tech/surveillance</h2>
+
+                    <div class="entry">
+                        <a href="https://www.motherjones.com/politics/2026/06/cellebrite-phone-protest-ice-dhs-spokane-fbi-conspiracy-surveillance-privacy/" class="article-link" target="_blank">Public Records Show FBI Secretly Extracted Data From ICE Protesters' Phones<span class="publication">mother jones</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://www.motherjones.com/politics/2026/07/ice-domestic-terrorists-database-ed-markey-letter/" class="article-link" target="_blank">ICE Finds a New Way to Dodge Congress About a Secret Protester Database<span class="publication">mother jones</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://www.motherjones.com/politics/2026/04/trump-congress-fisa-spy-court-fbi-bill/" class="article-link" target="_blank">Congress Is in Chaos Over a Surveillance Law—But the Full Story Is Classified<span class="publication">mother jones</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://www.motherjones.com/politics/2026/04/how-your-data-is-powering-trumps-surveillance-state/" class="article-link" target="_blank">How Your Data Is Powering Trump's Surveillance State<span class="publication">mother jones</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://www.motherjones.com/politics/2026/03/dhs-ice-domestic-terrorism-database-lawsuit-first-amendment/" class="article-link" target="_blank">DHS Waited Until It Was Sued to Remind ICE Agents About the First Amendment<span class="publication">mother jones</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://www.motherjones.com/politics/2026/03/dhs-wants-to-build-a-system-to-surveil-americans-travel-records/" class="article-link" target="_blank">DHS Wants to Build a System to Surveil Americans' Travel Records<span class="publication">mother jones</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://theintercept.com/2022/10/03/cubic-military-public-transit-mta-omny/" class="article-link" target="_blank">Meet the Military Contractor Running Fare Collection in New York Subways — and Around the World<span class="publication">the intercept</span></a>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h2 class="category-title">repression/resistance</h2>
+
+                    <div class="entry">
+                        <a href="https://www.motherjones.com/politics/2026/07/trump-conspiracy-antifa-cell-arrests/" class="article-link" target="_blank">Why Trump Wants You to Think All Dissent Is a "Conspiracy"<span class="publication">mother jones</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://www.motherjones.com/politics/2025/09/trump-antifa-interview-national-security-state-left-crackdown-speech-silencing-dissent-chip-gibbons-laura-loomer/" class="article-link" target="_blank">"Extremely Disturbing": What Does Trump's "Antifa" Executive Order Actually Do?<span class="publication">mother jones</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://www.motherjones.com/politics/2026/03/ice-dhs-warehouse-detention-centers-suburbs-nimby-roxbury-new-jersey-trump/" class="article-link" target="_blank">ICE Wants to Turn Warehouses Into Detention Centers. The Suburbs Are Fighting Back.<span class="publication">mother jones</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://www.motherjones.com/politics/2026/01/minneapolis-ice-protest-kkk-felony-civil-rights/" class="article-link" target="_blank">Trump DOJ Uses Anti-KKK Law to Charge ICE Protesters With Felony<span class="publication">mother jones</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://theintercept.com/2025/05/03/nyu-law-students-protests-gaza-palestine-israel/" class="article-link" target="_blank">NYU Demands Law Students Renounce Protests or Be Barred From Sitting Final Exams<span class="publication">the intercept</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://truthout.org/articles/the-attack-on-mahmoud-khalil-is-straight-out-of-the-war-on-terror-playbook/" class="article-link" target="_blank">The Attack on Mahmoud Khalil Is Straight Out of the "War on Terror" Playbook<span class="publication">truthout</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://truthout.org/articles/project-esther-is-a-mccarthy-era-blueprint-for-crushing-the-american-left/" class="article-link" target="_blank">Project Esther Is a McCarthy-Era Blueprint for Crushing the American Left<span class="publication">truthout</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://truthout.org/articles/north-carolina-gop-is-trying-to-corner-prosecutors-into-charging-protesters/" class="article-link" target="_blank">North Carolina GOP Is Trying to Corner Prosecutors Into Charging Protesters<span class="publication">truthout</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://theintercept.com/2023/11/16/israel-palestine-gaza-student-protests/" class="article-link" target="_blank">Inside the Nationwide Campaign to Intimidate Students Protesting for Gaza<span class="publication">the intercept</span></a>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h2 class="category-title">essays/criticism</h2>
+
+                    <div class="entry">
+                        <a href="https://www.motherjones.com/politics/2025/11/curtis-sliwa-mayor-mamdani-cuomo-watchparty-republican-club-2025-trump-republican/" class="article-link" target="_blank">On Curtis Sliwa<span class="publication">mother jones</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://www.motherjones.com/media/2026/01/monster-of-2025-glp-1-ads-ozempic-instagram-weight-loss/" class="article-link" target="_blank">On GLP-1 ads<span class="publication">mother jones</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://www.motherjones.com/media/2025/12/ai-slop-2025-facebook-peyton-manning-data-centers-this-stinks/" class="article-link" target="_blank">On AI slop<span class="publication">mother jones</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://dirt.fyi/article/2024/05/froyomonium" class="article-link" target="_blank">On frozen yogurt<span class="publication">dirt</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://truthout.org/articles/as-north-carolina-flooded-my-home-state-turned-from-climate-haven-to-calamity/" class="article-link" target="_blank">On Hurricane Helene<span class="publication">truthout</span></a>
+                    </div>
+                </div>
+
+              </div>
+              <!-- ============ RIGHT COLUMN ============ -->
+              <div class="col">
+
+                <div class="category">
+                    <h2 class="category-title">climate/environment</h2>
+
+                    <div class="entry">
+                        <a href="https://theintercept.com/2025/03/21/trump-epa-monsanto-roundup-bayer-cancer-chemicals/" class="article-link" target="_blank">Trump EPA's Next Move: Making It Harder to Sue for Getting Cancer from Roundup<span class="publication">the intercept</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://www.levernews.com/trump-clears-path-for-plastic-industrys-fake-recycling-fix/" class="article-link" target="_blank">Trump Clears Path For Plastic Industry's Fake Recycling Fix<span class="publication">the lever</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://theintercept.com/2023/09/28/braven-plastic-recycling-toxic-waste/" class="article-link" target="_blank">Garbage In, Toxics Out: They Promised "Advanced Recycling" for Plastics and Delivered Toxic Waste<span class="publication">the intercept</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://theintercept.com/2023/02/18/east-palestine-plastic-industry-lobbying/" class="article-link" target="_blank">The Myth of Safe Plastics Persists, Despite Risk of Disasters Like East Palestine<span class="publication">the intercept</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://theintercept.com/2023/10/31/plastics-pollution-advanced-recycling/" class="article-link" target="_blank">Unproven "Advanced Recycling" Facilities Have Received Millions in Public Subsidies<span class="publication">the intercept</span></a>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h2 class="category-title">money/power</h2>
+
+                    <div class="entry">
+                        <a href="https://www.motherjones.com/politics/2026/01/trump-greenland-landry-us-companies-profit-greenland-energy-swet-price-80mile-kobaldmetals/" class="article-link" target="_blank">Here's Who Could Profit From Trump's Pursuit of Greenland<span class="publication">mother jones</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://theintercept.com/2024/10/04/hurricane-helene-north-carolina-mountain-view-prison/" class="article-link" target="_blank">Hurricane-Struck North Carolina Prisoners Were Locked in Cells With Their Own Feces for Nearly a Week<span class="publication">the intercept</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://theintercept.com/2025/01/08/la-police-budget-palisades-fires/" class="article-link" target="_blank">LA Budgeted Money For Cop Jobs While Cutting Fire Department Positions. Now the City Is Burning.<span class="publication">the intercept</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://truthout.org/articles/hit-hard-by-hurricane-helene-georgias-migrant-farmworkers-struggle-to-get-aid/" class="article-link" target="_blank">Hit Hard by Hurricane Helene, Georgia's Immigrant Farmworkers Struggle to Get Aid<span class="publication">truthout</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://truthout.org/articles/youth-are-going-to-die-because-of-this-trump-defunds-violence-prevention/" class="article-link" target="_blank">"Youth Are Going to Die Because of This": Trump Defunds Violence Prevention<span class="publication">truthout</span></a>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h2 class="category-title">gender/sexuality</h2>
+
+                    <div class="entry">
+                        <a href="https://www.motherjones.com/politics/2026/03/olympics-gender-testing-anti-trans-genetic-chromosomes-caster-semenya-nazis/" class="article-link" target="_blank">The Ugly History Behind the Olympics' New Gender Test<span class="publication">mother jones</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://www.motherjones.com/politics/2025/11/gender-ideology-mother-tongue-keyword-judith-butler-trump-terfs/" class="article-link" target="_blank">The Right's Big Fear: "Gender Ideology"<span class="publication">mother jones</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://thebaffler.com/latest/pinkwashing-the-timeline-mitchell" class="article-link" target="_blank">Pinkwashing the Timeline<span class="publication">the baffler</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://theintercept.com/2022/05/17/abortion-trans-health-care-pro-natalism-authoritarianism/" class="article-link" target="_blank">The Right's Creeping Pro-Natalist Rhetoric on Abortion and Trans Health Care<span class="publication">the intercept</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://truthout.org/articles/instead-of-ignoring-trans-rights-at-dnc-dems-shouldve-vowed-to-protect-them/" class="article-link" target="_blank">Instead of Ignoring Trans Rights at DNC, Dems Should've Vowed to Protect Them<span class="publication">truthout</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://lamag.com/featured/lesbian-bars-los-angeles" class="article-link" target="_blank">How Did L.A. Become a City Without Lesbian Bars?<span class="publication">los angeles magazine</span></a>
+                    </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="bylines-section">
+                <a href="https://www.motherjones.com/author/schuyler-mitchell/" class="byline-link" target="_blank">Find all of my <em>Mother Jones</em> bylines here.</a>
+                <a href="https://theintercept.com/staff/schuylermitchell/" class="byline-link" target="_blank">Find all of my <em>Intercept</em> bylines here.</a>
+                <a href="https://truthout.org/authors/schuyler-mitchell/" class="byline-link" target="_blank">Find all of my <em>Truthout</em> bylines here.</a>
+            </div>
+        </section>
+
+        <!-- RESEARCH -->
+        <section class="content-section research-container" id="research">
+            <div class="index-columns">
+                <div class="category">
+                    <div class="entry">
+                        <a href="https://nymag.com/intelligencer/article/anti-vax-vaccine-movement-rfk-jr-david-mark-geier.html" class="article-link" target="_blank">The Father-and-Son Duo Who Toppled Our Trust in Vaccines<span class="publication">new york magazine</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://www.businessinsider.com/ai-data-center-development-true-cost-environmental-impact-2025-6" class="article-link" target="_blank">The True Cost of Data Centers<span class="publication">business insider</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://www.thecut.com/article/milo-youngblut-max-snyder-zivians-cult-murders.html" class="article-link" target="_blank">How Did Two Elite Students Fall for the Zizians Cult?<span class="publication">new york magazine</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://www.businessinsider.com/eighth-amendment-prohibit-protect-prisoners-cruel-and-unusual-punishment-gutted-2024-12" class="article-link" target="_blank">The Gutting of the Eighth Amendment<span class="publication">business insider</span></a>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <div class="entry">
+                        <a href="https://www.businessinsider.com/immigration-customs-enforcement-ice-agents-deadly-force-shootings-2024-8" class="article-link" target="_blank">Armed and Untouchable<span class="publication">business insider</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://theintercept.com/2023/12/17/kelly-siegler-prosecutor-jeffrey-prible/" class="article-link" target="_blank">The Prosecutor and the Snitch Ring<span class="publication">the intercept</span></a>
+                    </div>
+
+                    <div class="entry">
+                        <a href="https://theintercept.com/2022/06/23/honduras-berta-caceres-murder-money-trail/" class="article-link" target="_blank">The Cash Before the Killing<span class="publication">the intercept</span></a>
+                    </div>
                 </div>
             </div>
-            
-            <div class="links-container">
-                <p class="links" id="about-link">about</p>
-                <p class="links" id="writing-link">writing</p>
-                <p class="links" id="research-link">research</p>
-                <p class="links" id="interviews-link">interviews</p>
-                <p class="links" id="followme-link">follow me</p>
-                
-                <div class="content-section" id="about-section">
-                    <div class="section-title">about</div>
-                    <div class="about-text">
-                        I'm currently an assistant editor at <em>Mother Jones</em>, writing about surveillance, civil liberties, and dissent. Before that, I was a columnist at <em>Truthout</em> and an associate editor at <em>The Intercept</em>. I've contributed research to investigative features at <em>Business Insider</em> and <em>New York</em> magazine; projects I've worked on have won George Polk, Livingston, and Silver Gavel Awards. <br><br>
-        
-                        After graduating from Pomona College in 2020, I got my start in journalism as an intern at <em>Los Angeles Magazine</em>, which I juggled while completing DoorDash deliveries and SEO content writing gigs. I was born in Texas and raised in North Carolina.
-                    </div>
-                    <a href="index.html" class="go-back">go back</a>
-                </div>
-                
-                <div class="content-section writing-container" id="writing-section">
-                    <div class="section-title">writing</div>
+        </section>
 
-                         <div class="category">
-                        <div class="category-title">tech/surveillance</div>
+        <!-- INTERVIEWS -->
+        <section class="content-section" id="interviews">
+            <a href="https://www.podomatic.com/podcasts/staff74238/episodes/2025-07-22T08_56_47-07_00" class="interview-link" target="_blank">The Attitude with Arnie Arnesen, 2025</a>
+            <a href="https://www.wortfm.org/analyzing-the-la-protests-with-truthout-reporter-schuyler-mitchell/" class="interview-link" target="_blank">WORT-FM A Public Affair, 2025</a>
+            <a href="https://podcasts.apple.com/us/podcast/ep-6-schuyler-mitchell/id1820256669?i=1000715705403" class="interview-link" target="_blank">In the Meanwhile, 2025</a>
+            <a href="https://www.youtube.com/watch?v=rao2V3dI1E8" class="interview-link" target="_blank">The Majority Report, 2024</a>
+            <a href="https://www.youtube.com/watch?v=UQJ9sv0S5vs" class="interview-link" target="_blank">Rattling the Bars, 2024</a>
+            <a href="http://nicholasinstitute.duke.edu/events/trash-talk-plastic-waste-environmental-justice" class="interview-link" target="_blank">Duke University Environmental Law Society, 2024</a>
+            <a href="https://podcasts.apple.com/us/podcast/toxic-deregulation-with-schuyler-mitchell/id1631858075?i=1000601481718" class="interview-link" target="_blank">WBAI-FM Green Street News, 2023</a>
+        </section>
 
-                      <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://www.motherjones.com/politics/2026/06/cellebrite-phone-protest-ice-dhs-spokane-fbi-conspiracy-surveillance-privacy/" class="article-link" target="_blank">Public Records Show FBI Secretly Extracted Data From ICE Protesters’ Phones</a>
-                            </div>
-                            <div class="publication">mother jones</div>
-                        </div>
+        <!-- FOLLOW ME -->
+        <section class="content-section" id="followme">
+            <a href="https://x.com/schuy_ler" class="followme-link" target="_blank">X/Twitter</a>
+            <a href="https://www.instagram.com/schuyler.mitchell/" class="followme-link" target="_blank">Instagram</a>
+            <a href="https://www.linkedin.com/in/schuyler-a-mitchell/" class="followme-link" target="_blank">LinkedIn</a>
+        </section>
 
-<div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://www.motherjones.com/politics/2026/07/ice-domestic-terrorists-database-ed-markey-letter/" class="article-link" target="_blank">ICE Finds a New Way to Dodge Congress About a Secret Protester Database</a>
-                            </div>
-                            <div class="publication">mother jones</div>
-                        </div>
-                        
-
-                        <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://www.motherjones.com/politics/2026/04/trump-congress-fisa-spy-court-fbi-bill/" class="article-link" target="_blank">Congress Is in Chaos Over a Surveillance Law—But the Full Story Is Classified</a>
-                            </div>
-                            <div class="publication">mother jones</div>
-                        </div>
-
-
-
-                        <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://www.motherjones.com/politics/2026/04/how-your-data-is-powering-trumps-surveillance-state/" class="article-link" target="_blank">How Your Data Is Powering Trump’s Surveillance State</a>
-                            </div>
-                            <div class="publication">mother jones</div>
-                        </div>
-
-<div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://www.motherjones.com/politics/2026/03/dhs-ice-domestic-terrorism-database-lawsuit-first-amendment/" class="article-link" target="_blank">DHS Waited Until It Was Sued to Remind ICE Agents About the First Amendment</a>
-                            </div>
-                            <div class="publication">mother jones</div>
-                        </div>
-
-                        <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://www.motherjones.com/politics/2026/03/dhs-wants-to-build-a-system-to-surveil-americans-travel-records/" class="article-link" target="_blank">DHS Wants to Build a System to Surveil Americans’ Travel Records</a>
-                            </div>
-                            <div class="publication">mother jones</div>
-                        </div>
-
-                        <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://theintercept.com/2022/10/03/cubic-military-public-transit-mta-omny/" class="article-link" target="_blank">Meet the Military Contractor Running Fare Collection in New York Subways — and Around the World</a>
-                            </div>
-                            <div class="publication">the intercept</div>
-                        </div>
-
-    
-
-
-     <div class="category">
-                        <div class="category-title">repression/resistance</div>
-
-  <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://www.motherjones.com/politics/2026/07/trump-conspiracy-antifa-cell-arrests/" class="article-link" target="_blank">Why Trump Wants You to Think All Dissent Is a “Conspiracy”</a>
-                            </div>
-                            <div class="publication">mother jones</div>
-                        </div>
-
-
-                          <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://www.motherjones.com/politics/2025/09/trump-antifa-interview-national-security-state-left-crackdown-speech-silencing-dissent-chip-gibbons-laura-loomer/" class="article-link" target="_blank">“Extremely Disturbing”: What Does Trump’s “Antifa” Executive Order Actually Do?</a>
-                            </div>
-                            <div class="publication">mother jones</div>
-                        </div>
-
-
-    <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://www.motherjones.com/politics/2026/03/ice-dhs-warehouse-detention-centers-suburbs-nimby-roxbury-new-jersey-trump/" class="article-link" target="_blank">ICE Wants to Turn Warehouses Into Detention Centers. The Suburbs Are Fighting Back.
-</a>
-                            </div>
-                            <div class="publication">mother jones</div>
-                        </div>
-
-
-                          <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://www.motherjones.com/politics/2026/01/minneapolis-ice-protest-kkk-felony-civil-rights/" class="article-link" target="_blank">Trump DOJ Uses Anti-KKK Law to Charge ICE Protesters With Felony</a>
-                            </div>
-                            <div class="publication">mother jones</div>
-                        </div>
-
-
-                        <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://theintercept.com/2025/05/03/nyu-law-students-protests-gaza-palestine-israel/" class="article-link" target="_blank">NYU Demands Law Students Renounce Protests or Be Barred From Sitting Final Exams</a>
-                            </div>
-                            <div class="publication">the intercept</div>
-                        </div>
-
-
- <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://truthout.org/articles/the-attack-on-mahmoud-khalil-is-straight-out-of-the-war-on-terror-playbook/" class="article-link" target="_blank">The Attack on Mahmoud Khalil Is Straight Out of the “War on Terror” Playbook</a>
-                            </div>
-                            <div class="publication">truthout</div>
-                        </div>
-
-
-   <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://truthout.org/articles/project-esther-is-a-mccarthy-era-blueprint-for-crushing-the-american-left/" class="article-link" target="_blank">Project Esther Is a McCarthy-Era Blueprint for Crushing the American Left
-</a>
-                            </div>
-                            <div class="publication">truthout</div>
-                        </div>
-
-
-<div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://truthout.org/articles/north-carolina-gop-is-trying-to-corner-prosecutors-into-charging-protesters/" class="article-link" target="_blank">North Carolina GOP Is Trying to Corner Prosecutors Into Charging Protesters</a>
-                            </div>
-                            <div class="publication">truthout</div>
-                        </div>
-
-   <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://theintercept.com/2023/11/16/israel-palestine-gaza-student-protests/" class="article-link" target="_blank">Inside the Nationwide Campaign to Intimidate Students Protesting for Gaza</a>
-                            </div>
-                            <div class="publication">the intercept</div>
-                        </div>
-                        
-
-
-
-<div class="category">
-                        <div class="category-title">climate/environment</div>
-
-  <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://theintercept.com/2025/03/21/trump-epa-monsanto-roundup-bayer-cancer-chemicals/" class="article-link" target="_blank">Trump EPA’s Next Move: Making It Harder to Sue for Getting Cancer from Roundup</a>
-                            </div>
-                            <div class="publication">the intercept</div>
-                        </div>
-
-                          <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://www.levernews.com/trump-clears-path-for-plastic-industrys-fake-recycling-fix/" class="article-link" target="_blank">Trump Clears Path For Plastic Industry’s Fake Recycling Fix</a>
-                            </div>
-                            <div class="publication">the lever</div>
-                        </div>
-                        
-
-                        <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://theintercept.com/2023/09/28/braven-plastic-recycling-toxic-waste/" class="article-link" target="_blank">Garbage In, Toxics Out: They Promised "Advanced Recycling" for Plastics and Delivered Toxic Waste</a>
-                            </div>
-                            <div class="publication">the intercept</div>
-                        </div>
-                        
-                        
-                        <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://theintercept.com/2023/02/18/east-palestine-plastic-industry-lobbying/" class="article-link" target="_blank">The Myth of Safe Plastics Persists, Despite Risk of Disasters Like East Palestine</a>
-                            </div>
-                            <div class="publication">the intercept</div>
-                        </div>
-                        
-
-                        <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://theintercept.com/2023/10/31/plastics-pollution-advanced-recycling/" class="article-link" target="_blank">Unproven "Advanced Recycling" Facilities Have Received Millions in Public Subsidies</a>
-                            </div>
-                            <div class="publication">the intercept</div>
-                        </div>
-                    </div>
-                    
-                    <div class="category">
-                        <div class="category-title">money/power</div>
-                        
-                        <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://www.motherjones.com/politics/2026/01/trump-greenland-landry-us-companies-profit-greenland-energy-swet-price-80mile-kobaldmetals/" class="article-link" target="_blank">Here’s Who Could Profit From Trump’s Pursuit of Greenland</a>
-                            </div>
-                            <div class="publication">mother jones</div>
-                        </div>
-
-
-                        <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://theintercept.com/2024/10/04/hurricane-helene-north-carolina-mountain-view-prison/" class="article-link" target="_blank">Hurricane-Struck North Carolina Prisoners Were Locked in Cells With Their Own Feces for Nearly a Week</a>
-                            </div>
-                            <div class="publication">the intercept</div>
-                        </div>
-                        
-                        <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://theintercept.com/2025/01/08/la-police-budget-palisades-fires/" class="article-link" target="_blank">LA Budgeted Money For Cop Jobs While Cutting Fire Department Positions. Now the City Is Burning.</a>
-                            </div>
-                            <div class="publication">the intercept</div>
-                        </div>
-                        
-                         <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://truthout.org/articles/hit-hard-by-hurricane-helene-georgias-migrant-farmworkers-struggle-to-get-aid/" class="article-link" target="_blank">Hit Hard by Hurricane Helene, Georgia's Immigrant Farmworkers Struggle to Get Aid</a>
-                            </div>
-                            <div class="publication">truthout</div>
-                        </div>
-                        
-                        
-                         <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://truthout.org/articles/youth-are-going-to-die-because-of-this-trump-defunds-violence-prevention/" class="article-link" target="_blank">“Youth Are Going to Die Because of This”: Trump Defunds Violence Prevention</a>
-                            </div>
-                            <div class="publication">truthout</div>
-                        </div>
-            
-                    
-                    <div class="category">
-                        <div class="category-title">gender/sexuality</div>
-                        
-                       
-                   
-          <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://www.motherjones.com/politics/2026/03/olympics-gender-testing-anti-trans-genetic-chromosomes-caster-semenya-nazis/" class="article-link" target="_blank">The Ugly History Behind the Olympics’ New Gender Test</a>
-                            </div>
-                            <div class="publication">mother jones</div>
-                        </div>
-
-
-                          <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://www.motherjones.com/politics/2025/11/gender-ideology-mother-tongue-keyword-judith-butler-trump-terfs/" class="article-link" target="_blank">The Right's Big Fear: "Gender Ideology" </a>
-                            </div>
-                            <div class="publication">mother jones</div>
-                        </div>
-
-
-    <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://thebaffler.com/latest/pinkwashing-the-timeline-mitchell" class="article-link" target="_blank">Pinkwashing the Timeline</a>
-                            </div>
-                            <div class="publication">the baffler</div>
-                        </div>
-
-
-                          <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://theintercept.com/2022/05/17/abortion-trans-health-care-pro-natalism-authoritarianism/" class="article-link" target="_blank">The Right's Creeping Pro-Natalist Rhetoric on Abortion and Trans Health Care</a>
-                            </div>
-                            <div class="publication">the intercept</div>
-                        </div>
-
-                        
-                        <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://theintercept.com/2022/05/17/abortion-trans-health-care-pro-natalism-authoritarianism/" class="article-link" target="_blank">The Right's Creeping Pro-Natalist Rhetoric on Abortion and Trans Health Care</a>
-                            </div>
-                            <div class="publication">the intercept</div>
-                        </div>
-
-
-                           <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://truthout.org/articles/instead-of-ignoring-trans-rights-at-dnc-dems-shouldve-vowed-to-protect-them/" class="article-link" target="_blank">Instead of Ignoring Trans Rights at DNC, Dems Should’ve Vowed to Protect Them</a>
-                            </div>
-                            <div class="publication">truthout</div>
-                        </div>
-                 
-                        
-                          <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://lamag.com/featured/lesbian-bars-los-angeles" class="article-link" target="_blank">How Did L.A. Become a City Without Lesbian Bars?</a>
-                            </div>
-                            <div class="publication">los angeles magazine</div>
-                        </div>
-                 
-
-
-
-                    
-                    <div class="category">
-                        <div class="category-title">essays/criticism</div>
-                        
-                          <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://www.motherjones.com/politics/2025/11/curtis-sliwa-mayor-mamdani-cuomo-watchparty-republican-club-2025-trump-republican/" class="article-link" target="_blank">On Curtis Sliwa</a>
-                            </div>
-                            <div class="publication">mother jones</div>
-                        </div>
-
-                      <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://www.motherjones.com/media/2026/01/monster-of-2025-glp-1-ads-ozempic-instagram-weight-loss/" class="article-link" target="_blank">On GLP-1 ads</a>
-                            </div>
-                            <div class="publication">mother jones</div>
-                        </div>
-
-
-                          <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://www.motherjones.com/media/2025/12/ai-slop-2025-facebook-peyton-manning-data-centers-this-stinks/" class="article-link" target="_blank">On AI slop</a>
-                            </div>
-                            <div class="publication">mother jones</div>
-                        </div>
-
-                        
-                         <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://dirt.fyi/article/2024/05/froyomonium" class="article-link" target="_blank">On frozen yogurt</a>
-                            </div>
-                            <div class="publication">dirt</div>
-                        </div>
-
-                          <div class="article-container">
-                            <div class="article-link-container">
-                                <a href="https://truthout.org/articles/as-north-carolina-flooded-my-home-state-turned-from-climate-haven-to-calamity/" class="article-link" target="_blank">On Hurricane Helene</a>
-                            </div>
-                            <div class="publication">truthout</div>
-                        </div>
-                    
-                    <div class="bylines-section">
-                        <a href="https://theintercept.com/staff/schuylermitchell/" class="byline-link" target="_blank">Find all of my <em>Intercept</em> bylines here.</a>
-                        <a href="https://truthout.org/authors/schuyler-mitchell/" class="byline-link" target="_blank">Find all of my <em>Truthout</em> bylines here.</a>
-                    </div>
-                    
-                    <a href="index.html" class="go-back">go back</a>
-                </div>
-                
-                <div class="content-section research-container" id="research-section">
-                    <div class="section-title">research</div>
-                    <div class="article-container">
-                        <div class="article-link-container">
-                            <a href="https://nymag.com/intelligencer/article/anti-vax-vaccine-movement-rfk-jr-david-mark-geier.html" class="article-link" target="_blank">The Father-and-Son Duo Who Toppled Our Trust in Vaccines</a>
-                        </div>
-                        <div class="publication">new york magazine</div>
-                    </div>
-
-                    <div class="article-container">
-                        <div class="article-link-container">
-                            <a href="https://www.businessinsider.com/ai-data-center-development-true-cost-environmental-impact-2025-6" class="article-link" target="_blank">The True Cost of Data Centers</a>
-                        </div>
-                        <div class="publication">business insider</div>
-                    </div>
-                    
-
-                    <div class="article-container">
-                        <div class="article-link-container">
-                            <a href="https://www.thecut.com/article/milo-youngblut-max-snyder-zivians-cult-murders.html" class="article-link" target="_blank">How Did Two Elite Students Fall for the Zizians Cult?</a>
-                        </div>
-                        <div class="publication">new york magazine</div>
-                    </div>
-                    
-                    <div class="article-container">
-                        <div class="article-link-container">
-                            <a href="https://www.businessinsider.com/eighth-amendment-prohibit-protect-prisoners-cruel-and-unusual-punishment-gutted-2024-12" class="article-link" target="_blank">The Gutting of the Eighth Amendment</a>
-                        </div>
-                        <div class="publication">business insider</div>
-                    </div>
-
-        
-    
-                    <div class="article-container">
-                        <div class="article-link-container">
-                            <a href="https://www.businessinsider.com/immigration-customs-enforcement-ice-agents-deadly-force-shootings-2024-8" class="article-link" target="_blank">Armed and Untouchable</a>
-                        </div>
-                        <div class="publication">business insider</div>
-                    </div>
-                    
-                    <div class="article-container">
-                        <div class="article-link-container">
-                            <a href="https://theintercept.com/2023/12/17/kelly-siegler-prosecutor-jeffrey-prible/" class="article-link" target="_blank">The Prosecutor and the Snitch Ring</a>
-                        </div>
-                        <div class="publication">the intercept</div>
-                    </div>
-                    
-                    <div class="article-container">
-                        <div class="article-link-container">
-                            <a href="https://theintercept.com/2022/06/23/honduras-berta-caceres-murder-money-trail/" class="article-link" target="_blank">The Cash Before the Killing</a>
-                        </div>
-                        <div class="publication">the intercept</div>
-                    </div>
-                    
-                    <a href="index.html" class="go-back">go back</a>
-                </div>
-                
-                <div class="content-section interviews-container" id="interviews-section">
-                    <div class="section-title">interviews</div>
-                                        <a href="https://www.podomatic.com/podcasts/staff74238/episodes/2025-07-22T08_56_47-07_00" class="interview-link" target="_blank">The Attitude with Arnie Arnesen, 2025</a>
-                    <a href="https://www.wortfm.org/analyzing-the-la-protests-with-truthout-reporter-schuyler-mitchell/" class="interview-link" target="_blank">WORT-FM A Public Affair, 2025</a>
-                    <a href="https://podcasts.apple.com/us/podcast/ep-6-schuyler-mitchell/id1820256669?i=1000715705403" class="interview-link" target="_blank">In the Meanwhile, 2025</a>
-                    <a href="https://www.youtube.com/watch?v=rao2V3dI1E8" class="interview-link" target="_blank">The Majority Report, 2024</a>
-                    <a href="https://www.youtube.com/watch?v=UQJ9sv0S5vs" class="interview-link" target="_blank">Rattling the Bars, 2024</a>
-                    <a href="http://nicholasinstitute.duke.edu/events/trash-talk-plastic-waste-environmental-justice" class="interview-link" target="_blank">Duke University Environmental Law Society, 2024</a>
-                    <a href="https://podcasts.apple.com/us/podcast/toxic-deregulation-with-schuyler-mitchell/id1631858075?i=1000601481718" class="interview-link" target="_blank">WBAI-FM Green Street News, 2023</a>
-
-                    <a href="index.html" class="go-back">go back</a>
-                </div>
-
-                <div class="content-section" id="followme-section">
-                    <div class="section-title">follow me</div>
-                    <a href="https://x.com/schuy_ler" class="followme-link" target="_blank">X/Twitter</a>
-                    <a href="https://www.instagram.com/schuyler.mitchell/" class="followme-link" target="_blank">Instagram</a>
-                    <a href="https://www.linkedin.com/in/schuyler-a-mitchell/" class="followme-link" target="_blank">LinkedIn</a>
-                    <a href="index.html" class="go-back">go back</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="email-container">
+        <footer>
             <span class="email-text">tips? <a href="mailto:smitchell@motherjones.com" class="email-address">smitchell [at] motherjones [dot] com</a></span>
-        </div>
+        </footer>
+
     </div>
 
     <script>
-        document.getElementById('about-link').addEventListener('click', function() {
-            hideAllSections();
-            document.getElementById('about-section').style.display = 'block';
-        });
-        
-        document.getElementById('writing-link').addEventListener('click', function() {
-            hideAllSections();
-            document.getElementById('writing-section').style.display = 'block';
-        });
-        
-        document.getElementById('research-link').addEventListener('click', function() {
-            hideAllSections();
-            document.getElementById('research-section').style.display = 'block';
-        });
-        
-        document.getElementById('interviews-link').addEventListener('click', function() {
-            hideAllSections();
-            document.getElementById('interviews-section').style.display = 'block';
-        });
-        
-        document.getElementById('followme-link').addEventListener('click', function() {
-            hideAllSections();
-            document.getElementById('followme-section').style.display = 'block';
-        });
-        
-        function hideAllSections() {
-            // Hide all links
-            const links = document.querySelectorAll('.links');
-            links.forEach(link => {
-                link.style.display = 'none';
+        function show(id) {
+            document.querySelectorAll('.content-section').forEach(function (s) {
+                s.classList.toggle('is-open', s.id === id);
             });
-            
-            // Hide all content sections
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(section => {
-                section.style.display = 'none';
+            document.querySelectorAll('.nav-item').forEach(function (b) {
+                b.setAttribute('aria-current', b.dataset.target === id ? 'true' : 'false');
             });
+            history.replaceState(null, '', '#' + id);
         }
+
+        document.querySelectorAll('.nav-item').forEach(function (b) {
+            b.addEventListener('click', function () { show(b.dataset.target); });
+        });
+
+        var valid = ['about', 'writing', 'research', 'interviews', 'followme'];
+        var start = location.hash.slice(1);
+        show(valid.indexOf(start) !== -1 ? start : 'about');
     </script>
 </body>
 </html>
