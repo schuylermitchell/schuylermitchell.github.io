@@ -29,14 +29,16 @@
 
         /* ---------- masthead ---------- */
 
-        .masthead {
+   .masthead {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
     gap: 40px;
-    margin-bottom: 12px;
+    margin-bottom: 42px;
 }
 
-.masthead-text { flex: 1; min-width: 0; }
+.masthead-text { max-width: 400px; }
+
 
 .portrait {
     width: 240px;
@@ -65,7 +67,7 @@
             text-align: left;
             color: var(--cyan);
             font-size: 24px;
-            max-width: 34ch;
+            max-width: none;
             margin: 18px 0 0;
         }
 
@@ -81,7 +83,7 @@
 
         nav {
             display: flex;
-            justify-content: flex-start;
+            justify-content: center;
             flex-wrap: wrap;
             gap: 6px 28px;
             padding-bottom: 16px;
@@ -98,11 +100,13 @@ margin-bottom: var(--band-gap);
             font-family: inherit;
             cursor: inherit;
             transition: color 0.3s ease;
+            
         }
 
         .nav-item:hover { color: var(--cyan); }
         .nav-item[aria-current="true"] { color: var(--cyan); font-style: italic; }
         .nav-item:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+        .nav-item:focus { outline: none; }
 
         /* ---------- sections ---------- */
 
