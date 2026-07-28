@@ -69,12 +69,7 @@
             margin: 18px 0 0;
         }
 
-        .portrait {
-    width: 220px;
-    aspect-ratio: 1;
-    margin: 0 auto 30px;
-    overflow: hidden;
-        }
+       
 
 .portrait img {
     width: 100%;
@@ -166,6 +161,9 @@ margin-bottom: var(--band-gap);
             margin-top: 2px;
         }
 
+        </div>
+            </div>
+        </section>
 
         /* ---------- research + interviews ---------- */
 
@@ -218,31 +216,26 @@ margin-top: var(--band-gap);
 
         /* ---------- responsive ---------- */
 
-        @media (max-width: 760px) {
-            h1 { font-size: 52px; }
-            .slug { font-size: 18px; }
-            .nav-item { font-size: 22px; }
-            nav { gap: 4px 18px; }
-            .index-columns { grid-template-columns: 1fr; }
-            .email-text { font-size: 22px; }
-            .portrait { width: 170px; }
-        }
+       @media (max-width: 760px) {
+    .masthead { flex-direction: column; align-items: center; gap: 20px; }
+    h1 { text-align: center; font-size: 46px; }
+    .slug { text-align: center; max-width: none; font-size: 18px; }
+    nav { justify-content: center; gap: 4px 18px; }
+    .nav-item { font-size: 22px; }
+    .index-columns { grid-template-columns: 1fr; }
+    .email-text { font-size: 22px; }
+    .portrait { width: 190px; }
+}
 
         @media (prefers-reduced-motion: reduce) {
             * { transition: none !important; }
         }
-        .masthead { flex-direction: column; align-items: center; gap: 20px; }
-h1 { text-align: center; font-size: 46px; }
-.slug { text-align: center; max-width: none; }
-nav { justify-content: center; }
-.portrait { width: 190px; }
     </style>
 </head>
 <body>
     <div class="container">
 
-        <header>
-            <header class="masthead">
+<header class="masthead">
     <div class="portrait">
         <img src="photo.jpg" alt="Schuyler Mitchell">
     </div>
@@ -253,8 +246,7 @@ nav { justify-content: center; }
         <p class="slug">is a journalist covering politics and power. She lives in Queens</p>
     </div>
 </header>
-        </header>
-
+        
         <nav>
             <button class="nav-item" data-target="about">about</button>
             <button class="nav-item" data-target="writing">writing</button>
