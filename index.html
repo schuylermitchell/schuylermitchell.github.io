@@ -29,16 +29,31 @@
 
         /* ---------- masthead ---------- */
 
+        .masthead {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    margin-bottom: 12px;
+}
+
+.masthead-text { flex: 1; min-width: 0; }
+
+.portrait {
+    width: 240px;
+    flex-shrink: 0;
+    aspect-ratio: 1;
+    overflow: hidden;
+}
         .title-link { text-decoration: none; }
 
         h1 {
             color: var(--blue);
             font-weight: 150;
-            font-size: 100px;
-            text-align: center;
+            font-size: 80px;
+            text-align: left;
             margin: 0;
-            padding: 20px 0 10px;
-            line-height: 1;
+            padding: 0;
+            line-height: 0.95;
         }
 
         .name-part { display: inline-block; position: relative; }
@@ -47,10 +62,11 @@
         .name-part:hover .pronunciation { display: inline; }
 
         .slug {
-            text-align: center;
+            text-align: left;
             color: var(--cyan);
             font-size: 24px;
-            margin: 0 0 30px 0;
+            max-width: 34ch;
+            margin: 18px 0 0;
         }
 
         .portrait {
@@ -70,7 +86,7 @@
 
         nav {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             flex-wrap: wrap;
             gap: 6px 28px;
             padding-bottom: 16px;
@@ -150,23 +166,6 @@ margin-bottom: var(--band-gap);
             margin-top: 2px;
         }
 
-        .bylines-section {
-            margin-top: 10px;
-            padding-top: 22px;
-            border-top: 1px solid var(--cyan);
-        }
-
-        .byline-link {
-            display: block;
-            color: var(--cyan);
-            font-size: 16px;
-            margin: 9px 0;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .byline-link:hover { color: var(--blue); }
-        .byline-link em { font-style: italic; }
 
         /* ---------- research + interviews ---------- */
 
@@ -232,20 +231,28 @@ margin-top: var(--band-gap);
         @media (prefers-reduced-motion: reduce) {
             * { transition: none !important; }
         }
+        .masthead { flex-direction: column; align-items: center; gap: 20px; }
+h1 { text-align: center; font-size: 46px; }
+.slug { text-align: center; max-width: none; }
+nav { justify-content: center; }
+.portrait { width: 190px; }
     </style>
 </head>
 <body>
     <div class="container">
 
         <header>
-            <a href="#" class="title-link" onclick="show('about'); return false;">
-                <h1><span class="name-part"><span class="original">Schuyler</span><span class="pronunciation">[Sky-ler]</span></span> Mitchell</h1>
-            </a>
-            <p class="slug">is a journalist covering politics and power. She lives in Queens.</p>
-
-            <div class="portrait">
-    <img src="photo.jpg" alt="Schuyler Mitchell">
-</div>
+            <header class="masthead">
+    <div class="portrait">
+        <img src="photo.jpg" alt="Schuyler Mitchell">
+    </div>
+    <div class="masthead-text">
+        <a href="#" class="title-link" onclick="show('about'); return false;">
+            <h1><span class="name-part"><span class="original">Schuyler</span><span class="pronunciation">[Sky-ler]</span></span><br>Mitchell</h1>
+        </a>
+        <p class="slug">is a journalist covering politics and power. She lives in Queens</p>
+    </div>
+</header>
         </header>
 
         <nav>
@@ -443,13 +450,7 @@ margin-top: var(--band-gap);
 
               </div>
 
-            </div>
-
-            <div class="bylines-section">
-                <a href="https://www.motherjones.com/author/schuyler-mitchell/" class="byline-link" target="_blank">Find all of my <em>Mother Jones</em> bylines here.</a>
-                <a href="https://theintercept.com/staff/schuylermitchell/" class="byline-link" target="_blank">Find all of my <em>Intercept</em> bylines here.</a>
-                <a href="https://truthout.org/authors/schuyler-mitchell/" class="byline-link" target="_blank">Find all of my <em>Truthout</em> bylines here.</a>
-            </div>
+    
         </section>
 
         <!-- RESEARCH -->
